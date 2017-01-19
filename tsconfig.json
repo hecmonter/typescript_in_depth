@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "outDir": "js",
+        "rootDir": ".",
+        "module": "commonjs",
+        "sourceMap": false
+    },     
+    "files": [
+        "app.ts",
+        "./typings/index.d.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
