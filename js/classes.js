@@ -12,7 +12,7 @@ var ReferenceItem = (function () {
     function ReferenceItem(title, year) {
         this.title = title;
         this.year = year;
-        //console.log('Creating a new ReferenceItem...');
+        console.log('Creating a new ReferenceItem...');
     }
     ReferenceItem.prototype.printItem = function () {
         console.log(this.title + " was published in " + this.year);
