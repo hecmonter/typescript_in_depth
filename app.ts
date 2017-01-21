@@ -37,9 +37,9 @@ let catalogLocation2: KeyValuePair<string, Book> = ['other string', book1, 'stri
 let allBooks: Book[] = util.GetAllBooks();
 let allMagazines: Magazine[] = util.GetAllMagazines();
 
-let readingMaterial: Book | Magazine = allBooks[0];
+let readingMaterial: PrintMaterial = allBooks[0];
 
-function PrintTitle(item: Book | Magazine){
+function PrintTitle(item: PrintMaterial){
     console.log(item.title); 
 }
 
@@ -47,7 +47,7 @@ function PrintTitle(item: Book | Magazine){
 // PrintTitle(allMagazines[0]); 
 
 // interception types examples: 
-let serialNovel: Book & Magazine = {
+let serialNovel: Serial = {
     id: 100,   // Book property
     title: 'The Gradual Tale', // Book property
     author: 'Occasional Pen', // Book property
@@ -70,6 +70,23 @@ applyMixins(UniversityLibrarian, [Employee, Researcher]);
 let newLibrarianClass = new UniversityLibrarian();
 newLibrarianClass.doResearch('Economics'); 
 //console.log('%O', UniversityLibrarian); 
+
+
+
+// String Literal Types
+//let frecuency: 'montly' | 'annually' = 'annually';  // can only select iether one of these types.
+
+// type alias 
+type Frequency = 'monthly' | 'annually';
+type PrintMaterial = Book | Magazine; 
+type Serial = Book & Magazine; 
+
+function GetMagazineByFrequency(preferredFrequency: Frequency ) {
+    // do something
+}
+
+
+
 
 
 
