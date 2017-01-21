@@ -1,6 +1,7 @@
 import { Book, DamageLogger, Author, Librarian } from './interfaces';
+import * as Interfaces from './interfaces';
 
-class UniversityLibrarian implements Librarian {
+class UniversityLibrarian implements Interfaces.Librarian, Employee, Researcher {
     name: string; 
     email: string; 
     department: string; 
@@ -8,6 +9,11 @@ class UniversityLibrarian implements Librarian {
     assistCustomer(custName: string) {
         console.log(this.name + ' is assisting ' + custName );
     }
+
+    title: string;
+    addToSchedule: () => void; 
+    logTitle: () => void; 
+    doResearch: (topic: string) => void; 
 }
 
 abstract class ReferenceItem {
@@ -33,6 +39,22 @@ abstract class ReferenceItem {
     abstract printCitation(): void;
 }
 
+class Employee {
+    title: string; 
 
+    addToSchedule(): void {
+        console.log('Employee added to schedule'); 
+    }
 
-export { UniversityLibrarian, ReferenceItem };
+    logTitle(): void {
+        console.log(`Employee has the title ${this.title}`); 
+    }
+}
+
+class Researcher {
+    doResearch(topic: string): void {
+        console.log(`Doing research on ${topic}`); 
+    }
+}
+
+export { UniversityLibrarian, ReferenceItem, Employee, Researcher };

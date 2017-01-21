@@ -4,11 +4,11 @@
         "outDir": "js",
         "rootDir": ".",
         "module": "commonjs",
-        "sourceMap": false
-    },     
+        "sourceMap": false, 
+        "lib": [ "es5", "dom", "scripthost" ]
+    },         
     "files": [
-        "app.ts",
-        "./typings/index.d.ts"
+        "app.ts"        
     ],
     "exclude": [
         "node_modules"
