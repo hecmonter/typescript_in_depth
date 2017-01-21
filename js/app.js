@@ -1,14 +1,14 @@
 "use strict";
+var enums_1 = require("./enums");
 var util = require("./lib/utilityFunctions");
-function PrintBookInfo(item) {
-    console.log(item.title + " was authored by " + item.author);
-}
-//let [book1, book2] = util.GetAllBooks();
-function LogFavorityBooks(_a) {
-    var book1 = _a[0], book2 = _a[1], others = _a.slice(2);
-    PrintBookInfo(book1);
-    PrintBookInfo(book2);
-    console.log(others);
-}
-LogFavorityBooks(util.GetAllBooks());
+var schoolBooks = [
+    { id: 10, title: 'The Great Gatsby', author: 'F. Scott Fitzgeral', available: true, category: enums_1.Category.Children },
+    { id: 11, title: 'Crime and Punishment', author: 'Unknow author', available: true, category: enums_1.Category.Fiction }
+];
+var booksReads = util.GetAllBooks();
+booksReads.push.apply(booksReads, schoolBooks);
+//console.log(schoolBooks);
+var poets = ['Shelley', 'Collins', 'Hughes'];
+var authors = ['Tolstoy', 'Fitzgerald'].concat(poets);
+console.log(authors);
 //# sourceMappingURL=app.js.map
