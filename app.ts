@@ -3,90 +3,56 @@ import { Book, DamageLogger, Author, Librarian, Magazine } from './interfaces';
 import { UniversityLibrarian, ReferenceItem, Employee, Researcher } from './classes';
 import * as util from './lib/utilityFunctions';
 
-function PrintBookInfo(item:Book): void {
-    console.log(`${item.title} was authored by ${item.author}`);
+// polymorphic this.
+
+class LibraryBook {
+    CheckOut(): this {
+        console.log('Checking out a book'); 
+        return this;
+    }
+
+    Checkin(): this {
+        //console.log('Cheching in a book');
+
+        if(this instanceof ChildrensBook){
+            console.log('Checking a childrens book'); 
+        } 
+
+        if(this instanceof ElectronicBook){
+            console.log('Checking an Electronic Book');
+        } 
+        return this; 
+    }
 }
 
-let [book1, book2] = util.GetAllBooks();
-
-function LogFavorityBooks([book1, book2, ...others]: Book[]) {
-    PrintBookInfo(book1);
-    PrintBookInfo(book2);
-    console.log(others);
+class ChildrensBook extends LibraryBook {
+    Clean(): this {
+        console.log('Cleaning a book'); 
+        return this; 
+    }
 }
 
-//LogFavorityBooks(util.GetAllBooks());
-
-
-//Tuple types examples: 
-let catalogLocation: [string, Book] = ['123.45678', book1]; 
-//catalogLocation[2] = true; // Error   boolean != string | book
-//catalogLocation[2] = 'str' // ok.
-//catalogLocation[2] = book2 // ok. 
-
-// custom tuple type
-interface KeyValuePair<K, V> extends Array<K | V> {
-    0: K,
-    1: V   
+class ElectronicBook extends LibraryBook {
+    RemoveFromCustomerDevice(): this {
+        console.log('Removing book from device'); 
+        return this; 
+    }
 }
 
-let catalogLocation2: KeyValuePair<string, Book> = ['other string', book1, 'string', book1]; 
+let kidBook = new ChildrensBook();
+
+kidBook
+    .Checkin()
+    .Clean()
+    .CheckOut();
 
 
-// union types: specify several valid types for a value. Vertical bar is used to separate valid types.
-let allBooks: Book[] = util.GetAllBooks();
-let allMagazines: Magazine[] = util.GetAllMagazines();
+let electronicBook = new ElectronicBook();
 
-let readingMaterial: PrintMaterial = allBooks[0];
-
-function PrintTitle(item: PrintMaterial){
-    console.log(item.title); 
-}
-
-// PrintTitle(allBooks[0]);
-// PrintTitle(allMagazines[0]); 
-
-// interception types examples: 
-let serialNovel: Serial = {
-    id: 100,   // Book property
-    title: 'The Gradual Tale', // Book property
-    author: 'Occasional Pen', // Book property
-    available: true, // Book property
-    category: Category.Fiction, // Book property
-    publisher: 'Serial Press'  // Magazine property    
-};
-
-// mixins 
-function applyMixins(derivedCtor: any, baseCtors: any[]){
-    baseCtors.forEach(baseCtor => {
-        Object.getOwnPropertyNames(baseCtor.prototype).forEach(name => {
-            derivedCtor.prototype[name] = baseCtor.prototype[name]; 
-        });
-    });
-}
-
-applyMixins(UniversityLibrarian, [Employee, Researcher]); 
-
-let newLibrarianClass = new UniversityLibrarian();
-newLibrarianClass.doResearch('Economics'); 
-//console.log('%O', UniversityLibrarian); 
-
-
-
-// String Literal Types
-//let frecuency: 'montly' | 'annually' = 'annually';  // can only select iether one of these types.
-
-// type alias 
-type Frequency = 'monthly' | 'annually';
-type PrintMaterial = Book | Magazine; 
-type Serial = Book & Magazine; 
-
-function GetMagazineByFrequency(preferredFrequency: Frequency ) {
-    // do something
-}
-
-
-
+electronicBook
+    .Checkin()
+    .RemoveFromCustomerDevice()
+    .CheckOut();
 
 
 

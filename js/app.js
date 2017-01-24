@@ -1,49 +1,59 @@
 "use strict";
-var enums_1 = require("./enums");
-var classes_1 = require("./classes");
-var util = require("./lib/utilityFunctions");
-function PrintBookInfo(item) {
-    console.log(item.title + " was authored by " + item.author);
-}
-var _a = util.GetAllBooks(), book1 = _a[0], book2 = _a[1];
-function LogFavorityBooks(_a) {
-    var book1 = _a[0], book2 = _a[1], others = _a.slice(2);
-    PrintBookInfo(book1);
-    PrintBookInfo(book2);
-    console.log(others);
-}
-//LogFavorityBooks(util.GetAllBooks());
-//Tuple types examples: 
-var catalogLocation = ['123.45678', book1];
-var catalogLocation2 = ['other string', book1, 'string', book1];
-// union types: specify several valid types for a value. Vertical bar is used to separate valid types.
-var allBooks = util.GetAllBooks();
-var allMagazines = util.GetAllMagazines();
-var readingMaterial = allBooks[0];
-function PrintTitle(item) {
-    console.log(item.title);
-}
-// PrintTitle(allBooks[0]);
-// PrintTitle(allMagazines[0]); 
-// interception types examples: 
-var serialNovel = {
-    id: 100,
-    title: 'The Gradual Tale',
-    author: 'Occasional Pen',
-    available: true,
-    category: enums_1.Category.Fiction,
-    publisher: 'Serial Press' // Magazine property    
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-// mixins 
-function applyMixins(derivedCtor, baseCtors) {
-    baseCtors.forEach(function (baseCtor) {
-        Object.getOwnPropertyNames(baseCtor.prototype).forEach(function (name) {
-            derivedCtor.prototype[name] = baseCtor.prototype[name];
-        });
-    });
-}
-applyMixins(classes_1.UniversityLibrarian, [classes_1.Employee, classes_1.Researcher]);
-var newLibrarianClass = new classes_1.UniversityLibrarian();
-newLibrarianClass.doResearch('Economics');
-//console.log('%O', UniversityLibrarian); 
+// polymorphic this.
+var LibraryBook = (function () {
+    function LibraryBook() {
+    }
+    LibraryBook.prototype.CheckOut = function () {
+        console.log('Checking out a book');
+        return this;
+    };
+    LibraryBook.prototype.Checkin = function () {
+        //console.log('Cheching in a book');
+        if (this instanceof ChildrensBook) {
+            console.log('Checking a childrens book');
+        }
+        if (this instanceof ElectronicBook) {
+            console.log('Checking an Electronic Book');
+        }
+        return this;
+    };
+    return LibraryBook;
+}());
+var ChildrensBook = (function (_super) {
+    __extends(ChildrensBook, _super);
+    function ChildrensBook() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ChildrensBook.prototype.Clean = function () {
+        console.log('Cleaning a book');
+        return this;
+    };
+    return ChildrensBook;
+}(LibraryBook));
+var ElectronicBook = (function (_super) {
+    __extends(ElectronicBook, _super);
+    function ElectronicBook() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ElectronicBook.prototype.RemoveFromCustomerDevice = function () {
+        console.log('Removing book from device');
+        return this;
+    };
+    return ElectronicBook;
+}(LibraryBook));
+var kidBook = new ChildrensBook();
+kidBook
+    .Checkin()
+    .Clean()
+    .CheckOut();
+var electronicBook = new ElectronicBook();
+electronicBook
+    .Checkin()
+    .RemoveFromCustomerDevice()
+    .CheckOut();
 //# sourceMappingURL=app.js.map
