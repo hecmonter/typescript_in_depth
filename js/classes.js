@@ -5,6 +5,9 @@ var UniversityLibrarian = (function () {
     UniversityLibrarian.prototype.assistCustomer = function (custName) {
         console.log(this.name + ' is assisting ' + custName);
     };
+    UniversityLibrarian.prototype.assistFaculty = function () {
+        console.log('Assisting faculty');
+    };
     return UniversityLibrarian;
 }());
 exports.UniversityLibrarian = UniversityLibrarian;
@@ -44,6 +47,18 @@ var Employee = (function () {
     return Employee;
 }());
 exports.Employee = Employee;
+var PublicLibrarian = (function () {
+    function PublicLibrarian() {
+    }
+    PublicLibrarian.prototype.assistCustomer = function (custName) {
+        console.log('Assisting customer');
+    };
+    PublicLibrarian.prototype.teachCommunity = function () {
+        console.log('Teaching community');
+    };
+    return PublicLibrarian;
+}());
+exports.PublicLibrarian = PublicLibrarian;
 var Researcher = (function () {
     function Researcher() {
     }
