@@ -1,7 +1,7 @@
 import { Book, DamageLogger, Author, Librarian } from './interfaces';
 import * as Interfaces from './interfaces';
 
-class UniversityLibrarian implements Interfaces.Librarian, Employee, Researcher {
+export class UniversityLibrarian  {
     name: string; 
     email: string; 
     department: string; 
@@ -16,7 +16,7 @@ class UniversityLibrarian implements Interfaces.Librarian, Employee, Researcher 
     doResearch: (topic: string) => void; 
 }
 
-abstract class ReferenceItem {
+export abstract class ReferenceItem {
     private _publisher: string; 
     static department: string = 'Research Deparment static';
 
@@ -39,7 +39,7 @@ abstract class ReferenceItem {
     abstract printCitation(): void;
 }
 
-class Employee {
+export class Employee {
     title: string; 
 
     addToSchedule(): void {
@@ -51,10 +51,8 @@ class Employee {
     }
 }
 
-class Researcher {
+export class Researcher {
     doResearch(topic: string): void {
         console.log(`Doing research on ${topic}`); 
     }
 }
-
-export { UniversityLibrarian, ReferenceItem, Employee, Researcher };
