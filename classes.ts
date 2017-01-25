@@ -10,6 +10,10 @@ export class UniversityLibrarian  {
         console.log(this.name + ' is assisting ' + custName );
     }
 
+    assistFaculty(){
+        console.log('Assisting faculty');
+    }
+
     title: string;
     addToSchedule: () => void; 
     logTitle: () => void; 
@@ -48,6 +52,20 @@ export class Employee {
 
     logTitle(): void {
         console.log(`Employee has the title ${this.title}`); 
+    }
+}
+
+export class PublicLibrarian implements Interfaces.Librarian {
+    name: string; 
+    email: string; 
+    department: string; 
+
+    assistCustomer(custName: string){
+        console.log('Assisting customer'); 
+    }
+
+    teachCommunity() {
+        console.log('Teaching community'); 
     }
 }
 
